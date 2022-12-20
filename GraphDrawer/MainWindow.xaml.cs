@@ -35,9 +35,9 @@ namespace GraphDrawer {
             try {
                 GraphBody.Children.Clear();
             
-                var prevX = .1d;
+                var prevX = -15d;
                 var prevY = ExpressionConverter.ConvertString(_equation.Replace("x", $"{prevX}"));
-                for (var i = .1d; i < 15; i += .1d) {
+                for (var i = -15d; i < 15d; i += .1d) {
                     var answer = ExpressionConverter.ConvertString(_equation.Replace("x", $"{i}"));
 
                     GraphBody.Children.Add(new Line {
@@ -53,8 +53,7 @@ namespace GraphDrawer {
                 }
             }
             catch (Exception exception) {
-                MessageBox.Show($"{exception}");
-                throw;
+                MessageBox.Show($"{exception}", "Ошибка записи");
             }
         }
 
@@ -72,7 +71,9 @@ namespace GraphDrawer {
 
                 rtb.Render(dv);
 
-                var file = new SaveFileDialog();
+                var file = new SaveFileDialog {
+                    Filter = "PNG files | *.png"
+                };
                 if (file.ShowDialog() != true) return;
                 
                 var png = new PngBitmapEncoder();
