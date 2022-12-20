@@ -209,6 +209,34 @@
                       Margin="150,150,0,0"
                       Background="White">
                 </Canvas>
+                <Label HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="150,0,0,0">
+                         Y
+                </Label>
+                    <Label HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Margin="300,150,0,0">
+                            X
+                    </Label>
+                    <Label x:Name="Values"
+                            HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Margin="-10,150,0,0"
+                           FontSize="7">
+                    </Label>
+                    <Label HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Margin="130,0,0,0"
+                           FontSize="7">
+                            150
+                    </Label>
+                    <Label HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Margin="130,285,0,0"
+                           FontSize="7">
+                            -150
+                    </Label>
             </Canvas>
         <Button Height="30"
                 Width="120"
