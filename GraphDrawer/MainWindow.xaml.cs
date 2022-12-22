@@ -68,7 +68,7 @@ namespace GraphDrawer {
                 var bounds = VisualTreeHelper.GetDescendantBounds(Graph);
 
                 const double dpi = 96d;
-                var rtb = new RenderTargetBitmap(150, 150, 
+                var rtb = new RenderTargetBitmap(300, 300, 
                     dpi, dpi, PixelFormats.Default);
 
                 var dv = new DrawingVisual();
