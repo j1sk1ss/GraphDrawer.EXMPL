@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -19,7 +21,7 @@ namespace GraphDrawer {
         
         private void UserPressButton(object sender, RoutedEventArgs e) {
             var symbol = (sender as Button)!.Content.ToString();
-            _equation += (symbol == "ПРОБЕЛ" ? " " : symbol);
+            _equation += (symbol == "ПРОБЕЛ" ? " " : symbol) + " ";
             UserEquation.Content = _equation;
         }
 
@@ -92,6 +94,31 @@ namespace GraphDrawer {
                 MessageBox.Show($"{exception}");
                 throw;
             }
+        }
+
+        private readonly Dictionary<string, string> _operations = new() {
+            {"multiply", "*"},
+            {"divide","/"},
+            {"subtract","-"},
+            {"add","+"}
+        };
+
+        private void UserType(object sender, KeyEventArgs e) {
+            var temp = e.Key.ToString().ToLower();
+            
+            if (temp == "back") {
+                DeleteSymbol(null, null);
+                return;
+            }
+
+            if (_operations.ContainsKey(temp)) temp = _operations[temp];
+            
+            if (temp.Length > 1) {
+                temp = temp[1..];
+            }
+            
+            _equation += temp == "space" ? " " : temp;
+            UserEquation.Content = _equation;
         }
     }
 }

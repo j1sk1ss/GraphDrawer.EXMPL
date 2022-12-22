@@ -13,10 +13,10 @@ namespace GraphDrawer.Functions {
             (a1, a2) => a1 / a2,
             (a1, a2) => a1 * a2,
             Math.Pow,
-            (a1, a2) => a1 * Math.Sin(a2),
-            (a1, a2) => a1 * Math.Cos(a2),
-            (a1, a2) => a1 * Math.Tan(a2),
-            (a1, a2) => a1 * (1 / Math.Tan(a2))
+            (_, a2) => 1 * Math.Sin(a2),
+            (_, a2) => 1 * Math.Cos(a2),
+            (_, a2) => 1 * Math.Tan(a2),
+            (_, a2) => 1 * (1 / Math.Tan(a2))
         };
 
         public static double ConvertString(string expression) {
@@ -45,7 +45,7 @@ namespace GraphDrawer.Functions {
                         var arg1 = operandStack.Pop();
                         operandStack.Push(Operations[Array.IndexOf(Operators, op)](arg1, arg2));
                     }
-                    operatorStack.Push(token);
+                    operatorStack.Push(token ?? "1");
                 }
                 else operandStack.Push(double.Parse(token));
                 
@@ -54,10 +54,20 @@ namespace GraphDrawer.Functions {
             }
 
             while (operatorStack.Count > 0) {
-                var op    = operatorStack.Pop();
-                var arg2 = operandStack.Pop();
-                var arg1 = operandStack.Pop();
-            
+                var op   = "";
+                var arg2 = 0d;
+                var arg1 = 0d;
+                
+                if (operatorStack.Count >= 3) {
+                    op   = operatorStack.Pop();
+                    arg2 = operandStack.Pop();
+                    arg1 = operandStack.Pop();
+                }
+                else {
+                    op   = operatorStack.Pop();
+                    arg2 = operandStack.Pop();
+                }
+
                 operandStack.Push(Operations[Array.IndexOf(Operators, op)](arg1, arg2));
             }
             return operandStack.Pop();
