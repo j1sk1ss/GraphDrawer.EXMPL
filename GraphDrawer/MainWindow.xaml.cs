@@ -29,6 +29,10 @@ namespace GraphDrawer {
             if (_equation.Length == 0) return;
             
             _equation = _equation[..^1];
+            while (_equation[^1] != ' ') {
+                _equation = _equation[..^1];
+            }
+            
             UserEquation.Content = _equation;
         }
 
@@ -39,7 +43,6 @@ namespace GraphDrawer {
                 "13  14  15";
             try {
                 GraphBody.Children.Clear();
-            
                 var prevX = -15d;
                 var prevY = ExpressionConverter.ConvertString(_equation.Replace("x", $"{prevX}"));
                 for (var i = -15d; i < 15d; i += .1d) {

@@ -38,7 +38,7 @@ namespace GraphDrawer.Functions {
                         throw new ArgumentException("Неправильная скобочная последовательность!");
                 }
 
-                if (Array.IndexOf(Operators, token) >= 0) {
+                if (Operators.Contains(token)) {
                     while (operatorStack.Count > 0 && Array.IndexOf(Operators, token) < Array.IndexOf(Operators, operatorStack.Peek())) {
                         var op    = operatorStack.Pop();
                         var arg2 = operandStack.Pop();
@@ -57,17 +57,16 @@ namespace GraphDrawer.Functions {
                 var op   = "";
                 var arg2 = 0d;
                 var arg1 = 0d;
-                
-                if (operatorStack.Count >= 3) {
+
+                try {
                     op   = operatorStack.Pop();
                     arg2 = operandStack.Pop();
                     arg1 = operandStack.Pop();
                 }
-                else {
-                    op   = operatorStack.Pop();
-                    arg2 = operandStack.Pop();
+                catch (Exception e) {
+                    // ignored
                 }
-
+                
                 operandStack.Push(Operations[Array.IndexOf(Operators, op)](arg1, arg2));
             }
             return operandStack.Pop();
@@ -93,8 +92,7 @@ namespace GraphDrawer.Functions {
             
                 return subExpr.ToString();
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 MessageBox.Show($"{e}");
                 return "0";
             }
