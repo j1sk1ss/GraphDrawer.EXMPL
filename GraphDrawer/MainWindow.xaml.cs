@@ -26,8 +26,8 @@ namespace GraphDrawer {
         }
 
         private void DeleteSymbol(object sender, RoutedEventArgs e) {
-            if (_equation.Length == 0) return;
-            
+            if (_equation.Length <= 1) return;
+
             _equation = _equation[..^1];
             while (_equation[^1] != ' ') {
                 _equation = _equation[..^1];
